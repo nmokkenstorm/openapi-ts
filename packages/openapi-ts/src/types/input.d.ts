@@ -7,6 +7,19 @@ type ApiRegistryShorthands =
   | `readme:${string}`
   | `scalar:@${string}/${string}`;
 
+export type RequestHookContext = {
+  headers: Headers;
+  method: 'HEAD' | 'GET';
+  timeout: number | undefined;
+  url: string;
+};
+
+export type ResponseHookContext = RequestHookContext & {
+  duration: number;
+  error?: Error;
+  response: Response;
+};
+
 export type UserInput = {
   /**
    * **Requires `path` to start with `https://get.heyapi.dev` or be undefined**
@@ -38,6 +51,16 @@ export type UserInput = {
    * specification. This is useful if your file is behind auth for example.
    */
   fetch?: RequestInit;
+  /**
+   * Optional hook called after each HTTP request completes (success or failure).
+   * Use this to implement custom logging, metrics, error tracking, etc.
+   */
+  onPostRequest?: (context: ResponseHookContext) => void | Promise<void>;
+  /**
+   * Optional hook called before each HTTP request to fetch the OpenAPI specification.
+   * Use this to implement custom logging, metrics, or other observability.
+   */
+  onPreRequest?: (context: RequestHookContext) => void | Promise<void>;
   /**
    * **Requires `path` to start with `https://get.heyapi.dev` or be undefined**
    *
@@ -116,6 +139,16 @@ export type Input = {
    * specification. This is useful if your file is behind auth for example.
    */
   fetch?: RequestInit;
+  /**
+   * Optional hook called after each HTTP request completes (success or failure).
+   * Use this to implement custom logging, metrics, error tracking, etc.
+   */
+  onPostRequest?: (context: ResponseHookContext) => void | Promise<void>;
+  /**
+   * Optional hook called before each HTTP request to fetch the OpenAPI specification.
+   * Use this to implement custom logging, metrics, or other observability.
+   */
+  onPreRequest?: (context: RequestHookContext) => void | Promise<void>;
   /**
    * **Requires `path` to start with `https://get.heyapi.dev` or be undefined**
    *

@@ -266,6 +266,8 @@ export const createClient = async ({
     const { arrayBuffer, error, resolvedInput, response } = await getSpec({
       fetchOptions: input.fetch,
       inputPath: inputPaths[index]!.path,
+      onPostRequest: input.onPostRequest,
+      onPreRequest: input.onPreRequest,
       timeout: input.watch.timeout,
       watch: watches[index]!,
     });
