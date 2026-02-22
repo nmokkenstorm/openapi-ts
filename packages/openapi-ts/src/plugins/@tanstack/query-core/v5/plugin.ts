@@ -56,6 +56,20 @@ export const handlerV5: PluginHandler = ({ plugin }) => {
       resource: `${plugin.name}.useQuery`,
     },
   });
+  const queryOptionsType =
+    plugin.name === '@tanstack/angular-query-experimental' ||
+    plugin.name === '@tanstack/svelte-query' ||
+    plugin.name === '@tanstack/solid-query'
+      ? 'CreateQueryOptions'
+      : 'UseQueryOptions';
+  plugin.symbol(queryOptionsType, {
+    external: plugin.name,
+    kind: 'type',
+    meta: {
+      category: 'external',
+      resource: `${plugin.name}.QueryObserverOptions`,
+    },
+  });
   plugin.symbol('AxiosError', {
     external: 'axios',
     kind: 'type',

@@ -7,10 +7,11 @@ import {
   isOperationOptionsRequired,
 } from '../../../../plugins/shared/utils/operation';
 import { $ } from '../../../../ts-dsl';
-import { useTypeData } from '../shared/useType';
+import { useTypeData, useTypeError, useTypeResponse } from '../shared/useType';
 import type { PluginInstance } from '../types';
 
 const optionsParamName = 'options';
+const queryOptionsParamName = 'queryOptions';
 
 export const createUseQuery = ({
   operation,
@@ -37,6 +38,14 @@ export const createUseQuery = ({
   });
   const typeData = useTypeData({ operation, plugin });
 
+  const typeResponse = useTypeResponse({ operation, plugin });
+
+  const symbolQueryOptionsType = plugin.external(`${plugin.name}.QueryObserverOptions`);
+  const queryType = $.type(symbolQueryOptionsType)
+    .generic(typeResponse)
+    .generic(useTypeError({ operation, plugin }))
+    .generic(typeResponse);
+
   const symbolQueryOptionsFn = plugin.referenceSymbol({
     category: 'hook',
     resource: 'operation',
@@ -50,7 +59,29 @@ export const createUseQuery = ({
     .assign(
       $.func()
         .param(optionsParamName, (p) => p.required(isRequiredOptions).type(typeData))
-        .do($(symbolUseQuery).call($(symbolQueryOptionsFn).call(optionsParamName)).return()),
+        .param(queryOptionsParamName, (p) =>
+          p
+            .optional()
+            .type(
+              $.type('Partial').generic(
+                $.type('Omit', (t) =>
+                  t.generics(
+                    queryType,
+                    $.type.or($.type.literal('queryKey'), $.type.literal('queryFn')),
+                  ),
+                ),
+              ),
+            ),
+        )
+        .do(
+          $(symbolUseQuery)
+            .call(
+              $.object()
+                .spread($(symbolQueryOptionsFn).call(optionsParamName))
+                .spread(queryOptionsParamName),
+            )
+            .return(),
+        ),
     );
   plugin.node(statement);
 };
