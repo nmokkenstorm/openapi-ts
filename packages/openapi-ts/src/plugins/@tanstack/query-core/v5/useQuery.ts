@@ -38,6 +38,10 @@ export const createUseQuery = ({
   });
   const typeData = useTypeData({ operation, plugin });
 
+  const hasSkipToken = 'skipToken' in plugin.config && plugin.config.skipToken;
+  const symbolSkipToken = hasSkipToken ? plugin.external(`${plugin.name}.skipToken`) : undefined;
+  const paramType = symbolSkipToken ? $.type.or(typeData, $.type.query(symbolSkipToken)) : typeData;
+
   const typeResponse = useTypeResponse({ operation, plugin });
 
   const symbolQueryOptionsType = plugin.external(`${plugin.name}.QueryObserverOptions`);
@@ -58,7 +62,7 @@ export const createUseQuery = ({
     .$if(plugin.config.comments && createOperationComment(operation), (c, v) => c.doc(v))
     .assign(
       $.func()
-        .param(optionsParamName, (p) => p.required(isRequiredOptions).type(typeData))
+        .param(optionsParamName, (p) => p.required(isRequiredOptions).type(paramType))
         .param(queryOptionsParamName, (p) =>
           p
             .optional()

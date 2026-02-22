@@ -70,6 +70,16 @@ export const handlerV5: PluginHandler = ({ plugin }) => {
       resource: `${plugin.name}.QueryObserverOptions`,
     },
   });
+  if ('skipToken' in plugin.config && plugin.config.skipToken) {
+    plugin.symbol('skipToken', {
+      external: plugin.name,
+      meta: {
+        category: 'external',
+        resource: `${plugin.name}.skipToken`,
+      },
+    });
+  }
+
   plugin.symbol('AxiosError', {
     external: 'axios',
     kind: 'type',

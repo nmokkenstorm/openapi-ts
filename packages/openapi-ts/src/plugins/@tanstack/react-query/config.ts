@@ -55,6 +55,8 @@ export const defaultConfig: TanStackReactQueryPlugin['Config'] = {
       value: plugin.config.queryKeys,
     });
 
+    plugin.config.skipToken = plugin.config.skipToken ?? false;
+
     plugin.config.queryOptions = context.valueToObject({
       defaultValue: {
         case: plugin.config.case ?? 'camelCase',

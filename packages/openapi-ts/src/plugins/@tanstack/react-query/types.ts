@@ -287,6 +287,16 @@ export type UserConfig = Plugin.Name<'@tanstack/react-query'> &
           name?: NameTransformer;
         };
     /**
+     * Whether to generate `skipToken` support for conditional queries.
+     * When enabled, `queryOptions()` and `infiniteQueryOptions()` accept
+     * `skipToken` as the options parameter for type-safe query disabling.
+     *
+     * See {@link https://tanstack.com/query/v5/docs/framework/react/guides/disabling-queries#typesafe-disabling-of-queries-using-skiptoken skipToken}
+     *
+     * @default false
+     */
+    skipToken?: boolean;
+    /**
      * Configuration for generated `useQuery()` function helpers.
      *
      * See {@link https://tanstack.com/query/v5/docs/framework/react/reference/useQuery useQuery}
@@ -462,6 +472,10 @@ export type Config = Plugin.Name<'@tanstack/react-query'> &
          */
         meta: (operation: IR.OperationObject) => Record<string, unknown>;
       };
+    /**
+     * Whether to generate `skipToken` support for conditional queries.
+     */
+    skipToken: boolean;
     /**
      * Configuration for generated `useQuery()` function helpers.
      *

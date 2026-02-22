@@ -55,6 +55,9 @@ export const createQueryOptions = ({
 
   const typeResponse = useTypeResponse({ operation, plugin });
 
+  const hasSkipToken = 'skipToken' in plugin.config && plugin.config.skipToken;
+  const symbolSkipToken = hasSkipToken ? plugin.external(`${plugin.name}.skipToken`) : undefined;
+
   const awaitSdkFn = $.lazy((ctx) =>
     ctx
       .access(
@@ -81,17 +84,29 @@ export const createQueryOptions = ({
     statements.push($.const().object('data').assign(awaitSdkFn), $.return('data'));
   }
 
+  const asyncQueryFn = $.func()
+    .async()
+    .param((p) => p.object('queryKey', 'signal'))
+    .do(...statements);
+
+  const queryFnValue = symbolSkipToken
+    ? $.ternary($(optionsParamName).eq(symbolSkipToken)).do(symbolSkipToken).otherwise(asyncQueryFn)
+    : asyncQueryFn;
+
+  const queryKeyArg = symbolSkipToken
+    ? $.ternary($(optionsParamName).eq(symbolSkipToken))
+        .do($('undefined'))
+        .otherwise($(optionsParamName))
+    : $(optionsParamName);
+
   const queryOptionsObj = $.object()
     .pretty()
-    .prop(
-      'queryFn',
-      $.func()
-        .async()
-        .param((p) => p.object('queryKey', 'signal'))
-        .do(...statements),
-    )
-    .prop('queryKey', $(symbolQueryKey).call(optionsParamName))
+    .prop('queryFn', queryFnValue)
+    .prop('queryKey', $(symbolQueryKey).call(queryKeyArg))
     .$if(handleMeta(plugin, operation, 'queryOptions'), (o, v) => o.prop('meta', v));
+
+  const typeData = useTypeData({ operation, plugin });
+  const paramType = symbolSkipToken ? $.type.or(typeData, $.type.query(symbolSkipToken)) : typeData;
 
   const symbolQueryOptionsFn = plugin.symbol(
     applyNaming(operation.id, plugin.config.queryOptions),
@@ -112,9 +127,7 @@ export const createQueryOptions = ({
     .$if(plugin.config.comments && createOperationComment(operation), (c, v) => c.doc(v))
     .assign(
       $.func()
-        .param(optionsParamName, (p) =>
-          p.required(isRequiredOptions).type(useTypeData({ operation, plugin })),
-        )
+        .param(optionsParamName, (p) => p.required(isRequiredOptions).type(paramType))
         .do(
           $(symbolQueryOptions)
             .call(queryOptionsObj)
