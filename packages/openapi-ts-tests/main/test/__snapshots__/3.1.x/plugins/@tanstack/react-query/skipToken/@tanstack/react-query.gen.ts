@@ -51,7 +51,7 @@ export const exportOptions = (options?: Options<ExportData> | typeof skipToken) 
         });
         return data;
     },
-    queryKey: exportQueryKey(options === skipToken ? undefined : options)
+    queryKey: exportQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useExportQuery = (options?: Options<ExportData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof exportOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...exportOptions(options), ...queryOptions });
@@ -110,7 +110,7 @@ export const apiVVersionODataControllerCountOptions = (options?: Options<ApiVVer
         });
         return data;
     },
-    queryKey: apiVVersionODataControllerCountQueryKey(options === skipToken ? undefined : options)
+    queryKey: apiVVersionODataControllerCountQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useApiVVersionODataControllerCountQuery = (options?: Options<ApiVVersionODataControllerCountData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof apiVVersionODataControllerCountOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...apiVVersionODataControllerCountOptions(options), ...queryOptions });
@@ -127,7 +127,7 @@ export const getApiVbyApiVersionSimpleOperationOptions = (options: Options<GetAp
         });
         return data;
     },
-    queryKey: getApiVbyApiVersionSimpleOperationQueryKey(options === skipToken ? undefined : options)
+    queryKey: getApiVbyApiVersionSimpleOperationQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useGetApiVbyApiVersionSimpleOperationQuery = (options: Options<GetApiVbyApiVersionSimpleOperationData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof getApiVbyApiVersionSimpleOperationOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...getApiVbyApiVersionSimpleOperationOptions(options), ...queryOptions });
@@ -158,7 +158,7 @@ export const getCallWithoutParametersAndResponseOptions = (options?: Options<Get
         });
         return data;
     },
-    queryKey: getCallWithoutParametersAndResponseQueryKey(options === skipToken ? undefined : options)
+    queryKey: getCallWithoutParametersAndResponseQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useGetCallWithoutParametersAndResponseQuery = (options?: Options<GetCallWithoutParametersAndResponseData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof getCallWithoutParametersAndResponseOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...getCallWithoutParametersAndResponseOptions(options), ...queryOptions });
@@ -290,7 +290,7 @@ export const getCallWithOptionalParamOptions = (options: Options<GetCallWithOpti
         });
         return data;
     },
-    queryKey: getCallWithOptionalParamQueryKey(options === skipToken ? undefined : options)
+    queryKey: getCallWithOptionalParamQueryKey(options === skipToken ? undefined as never : options)
 });
 
 const createInfiniteParams = <K extends Pick<QueryKey<Options>[0], 'body' | 'headers' | 'path' | 'query'>>(queryKey: QueryKey<Options>, page: K) => {
@@ -343,7 +343,7 @@ export const getCallWithOptionalParamInfiniteOptions = (options: Options<GetCall
         });
         return data;
     },
-    queryKey: getCallWithOptionalParamInfiniteQueryKey(options === skipToken ? undefined : options)
+    queryKey: getCallWithOptionalParamInfiniteQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useGetCallWithOptionalParamQuery = (options: Options<GetCallWithOptionalParamData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof getCallWithOptionalParamOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...getCallWithOptionalParamOptions(options), ...queryOptions });
@@ -402,7 +402,7 @@ export const callWithDefaultParametersOptions = (options?: Options<CallWithDefau
         });
         return data;
     },
-    queryKey: callWithDefaultParametersQueryKey(options === skipToken ? undefined : options)
+    queryKey: callWithDefaultParametersQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useCallWithDefaultParametersQuery = (options?: Options<CallWithDefaultParametersData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof callWithDefaultParametersOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...callWithDefaultParametersOptions(options), ...queryOptions });
@@ -461,7 +461,7 @@ export const duplicateName2Options = (options?: Options<DuplicateName2Data> | ty
         });
         return data;
     },
-    queryKey: duplicateName2QueryKey(options === skipToken ? undefined : options)
+    queryKey: duplicateName2QueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useDuplicateName2Query = (options?: Options<DuplicateName2Data> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof duplicateName2Options>, 'queryKey' | 'queryFn'>>) => useQuery({ ...duplicateName2Options(options), ...queryOptions });
@@ -506,7 +506,7 @@ export const callWithNoContentResponseOptions = (options?: Options<CallWithNoCon
         });
         return data;
     },
-    queryKey: callWithNoContentResponseQueryKey(options === skipToken ? undefined : options)
+    queryKey: callWithNoContentResponseQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useCallWithNoContentResponseQuery = (options?: Options<CallWithNoContentResponseData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof callWithNoContentResponseOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...callWithNoContentResponseOptions(options), ...queryOptions });
@@ -523,7 +523,7 @@ export const callWithResponseAndNoContentResponseOptions = (options?: Options<Ca
         });
         return data;
     },
-    queryKey: callWithResponseAndNoContentResponseQueryKey(options === skipToken ? undefined : options)
+    queryKey: callWithResponseAndNoContentResponseQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useCallWithResponseAndNoContentResponseQuery = (options?: Options<CallWithResponseAndNoContentResponseData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof callWithResponseAndNoContentResponseOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...callWithResponseAndNoContentResponseOptions(options), ...queryOptions });
@@ -540,7 +540,7 @@ export const dummyAOptions = (options?: Options<DummyAData> | typeof skipToken) 
         });
         return data;
     },
-    queryKey: dummyAQueryKey(options === skipToken ? undefined : options)
+    queryKey: dummyAQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useDummyAQuery = (options?: Options<DummyAData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof dummyAOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...dummyAOptions(options), ...queryOptions });
@@ -557,7 +557,7 @@ export const dummyBOptions = (options?: Options<DummyBData> | typeof skipToken) 
         });
         return data;
     },
-    queryKey: dummyBQueryKey(options === skipToken ? undefined : options)
+    queryKey: dummyBQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useDummyBQuery = (options?: Options<DummyBData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof dummyBOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...dummyBOptions(options), ...queryOptions });
@@ -574,7 +574,7 @@ export const callWithResponseOptions = (options?: Options<CallWithResponseData> 
         });
         return data;
     },
-    queryKey: callWithResponseQueryKey(options === skipToken ? undefined : options)
+    queryKey: callWithResponseQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useCallWithResponseQuery = (options?: Options<CallWithResponseData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof callWithResponseOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...callWithResponseOptions(options), ...queryOptions });
@@ -619,7 +619,7 @@ export const collectionFormatOptions = (options: Options<CollectionFormatData> |
         });
         return data;
     },
-    queryKey: collectionFormatQueryKey(options === skipToken ? undefined : options)
+    queryKey: collectionFormatQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useCollectionFormatQuery = (options: Options<CollectionFormatData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof collectionFormatOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...collectionFormatOptions(options), ...queryOptions });
@@ -636,7 +636,7 @@ export const typesOptions = (options: Options<TypesData> | typeof skipToken) => 
         });
         return data;
     },
-    queryKey: typesQueryKey(options === skipToken ? undefined : options)
+    queryKey: typesQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useTypesQuery = (options: Options<TypesData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof typesOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...typesOptions(options), ...queryOptions });
@@ -667,7 +667,7 @@ export const fileResponseOptions = (options: Options<FileResponseData> | typeof 
         });
         return data;
     },
-    queryKey: fileResponseQueryKey(options === skipToken ? undefined : options)
+    queryKey: fileResponseQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useFileResponseQuery = (options: Options<FileResponseData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof fileResponseOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...fileResponseOptions(options), ...queryOptions });
@@ -684,7 +684,7 @@ export const complexTypesOptions = (options: Options<ComplexTypesData> | typeof 
         });
         return data;
     },
-    queryKey: complexTypesQueryKey(options === skipToken ? undefined : options)
+    queryKey: complexTypesQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useComplexTypesQuery = (options: Options<ComplexTypesData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof complexTypesOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...complexTypesOptions(options), ...queryOptions });
@@ -701,7 +701,7 @@ export const multipartResponseOptions = (options?: Options<MultipartResponseData
         });
         return data;
     },
-    queryKey: multipartResponseQueryKey(options === skipToken ? undefined : options)
+    queryKey: multipartResponseQueryKey(options === skipToken ? undefined as never : options)
 });
 
 export const useMultipartResponseQuery = (options?: Options<MultipartResponseData> | typeof skipToken, queryOptions?: Partial<Omit<ReturnType<typeof multipartResponseOptions>, 'queryKey' | 'queryFn'>>) => useQuery({ ...multipartResponseOptions(options), ...queryOptions });

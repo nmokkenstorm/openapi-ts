@@ -236,7 +236,9 @@ export const createInfiniteQueryOptions = ({
     : asyncQueryFn;
 
   const queryKeyArg = symbolSkipToken
-    ? $.ternary($('options').eq(symbolSkipToken)).do($('undefined')).otherwise($('options'))
+    ? $.ternary($('options').eq(symbolSkipToken))
+        .do($('undefined as never'))
+        .otherwise($('options'))
     : $('options');
 
   const paramType = symbolSkipToken ? $.type.or(typeData, $.type.query(symbolSkipToken)) : typeData;

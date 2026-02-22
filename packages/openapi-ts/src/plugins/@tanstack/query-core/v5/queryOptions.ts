@@ -95,7 +95,7 @@ export const createQueryOptions = ({
 
   const queryKeyArg = symbolSkipToken
     ? $.ternary($(optionsParamName).eq(symbolSkipToken))
-        .do($('undefined'))
+        .do($('undefined as never'))
         .otherwise($(optionsParamName))
     : $(optionsParamName);
 
