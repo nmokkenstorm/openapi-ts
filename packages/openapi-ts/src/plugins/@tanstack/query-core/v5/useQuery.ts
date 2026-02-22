@@ -7,7 +7,7 @@ import {
   isOperationOptionsRequired,
 } from '../../../../plugins/shared/utils/operation';
 import { $ } from '../../../../ts-dsl';
-import { useTypeData, useTypeError, useTypeResponse } from '../shared/useType';
+import { useTypeData } from '../shared/useType';
 import type { PluginInstance } from '../types';
 
 const optionsParamName = 'options';
@@ -42,14 +42,6 @@ export const createUseQuery = ({
   const symbolSkipToken = hasSkipToken ? plugin.external(`${plugin.name}.skipToken`) : undefined;
   const paramType = symbolSkipToken ? $.type.or(typeData, $.type.query(symbolSkipToken)) : typeData;
 
-  const typeResponse = useTypeResponse({ operation, plugin });
-
-  const symbolQueryOptionsType = plugin.external(`${plugin.name}.QueryObserverOptions`);
-  const queryType = $.type(symbolQueryOptionsType)
-    .generic(typeResponse)
-    .generic(useTypeError({ operation, plugin }))
-    .generic(typeResponse);
-
   const symbolQueryOptionsFn = plugin.referenceSymbol({
     category: 'hook',
     resource: 'operation',
@@ -57,26 +49,23 @@ export const createUseQuery = ({
     role: 'queryOptions',
     tool: plugin.name,
   });
+
+  const queryOptionsReturnType = $.type('Partial').generic(
+    $.type('Omit', (t) =>
+      t.generics(
+        $(symbolQueryOptionsFn).returnType(),
+        $.type.or($.type.literal('queryKey'), $.type.literal('queryFn')),
+      ),
+    ),
+  );
+
   const statement = $.const(symbolUseQueryFn)
     .export()
     .$if(plugin.config.comments && createOperationComment(operation), (c, v) => c.doc(v))
     .assign(
       $.func()
         .param(optionsParamName, (p) => p.required(isRequiredOptions).type(paramType))
-        .param(queryOptionsParamName, (p) =>
-          p
-            .optional()
-            .type(
-              $.type('Partial').generic(
-                $.type('Omit', (t) =>
-                  t.generics(
-                    queryType,
-                    $.type.or($.type.literal('queryKey'), $.type.literal('queryFn')),
-                  ),
-                ),
-              ),
-            ),
-        )
+        .param(queryOptionsParamName, (p) => p.optional().type(queryOptionsReturnType))
         .do(
           $(symbolUseQuery)
             .call(
