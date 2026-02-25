@@ -90,7 +90,9 @@ export const createQueryOptions = ({
     .do(...statements);
 
   const queryFnValue = symbolSkipToken
-    ? $.ternary($(optionsParamName).eq(symbolSkipToken)).do(symbolSkipToken).otherwise(asyncQueryFn)
+    ? $.ternary($(optionsParamName).eq(symbolSkipToken))
+        .do($(symbolSkipToken))
+        .otherwise(asyncQueryFn)
     : asyncQueryFn;
 
   const queryKeyArg = symbolSkipToken
@@ -106,7 +108,9 @@ export const createQueryOptions = ({
     .$if(handleMeta(plugin, operation, 'queryOptions'), (o, v) => o.prop('meta', v));
 
   const typeData = useTypeData({ operation, plugin });
-  const paramType = symbolSkipToken ? $.type.or(typeData, $.type.query(symbolSkipToken)) : typeData;
+  const paramType = symbolSkipToken
+    ? $.type.or(typeData, $.type.query($(symbolSkipToken)))
+    : typeData;
 
   const symbolQueryOptionsFn = plugin.symbol(
     applyNaming(operation.id, plugin.config.queryOptions),

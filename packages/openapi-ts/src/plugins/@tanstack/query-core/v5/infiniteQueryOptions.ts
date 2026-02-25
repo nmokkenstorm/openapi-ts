@@ -232,7 +232,7 @@ export const createInfiniteQueryOptions = ({
     .do(...statements);
 
   const queryFnValue = symbolSkipToken
-    ? $.ternary($('options').eq(symbolSkipToken)).do(symbolSkipToken).otherwise(asyncQueryFn)
+    ? $.ternary($('options').eq(symbolSkipToken)).do($(symbolSkipToken)).otherwise(asyncQueryFn)
     : asyncQueryFn;
 
   const queryKeyArg = symbolSkipToken
@@ -241,7 +241,9 @@ export const createInfiniteQueryOptions = ({
         .otherwise($('options'))
     : $('options');
 
-  const paramType = symbolSkipToken ? $.type.or(typeData, $.type.query(symbolSkipToken)) : typeData;
+  const paramType = symbolSkipToken
+    ? $.type.or(typeData, $.type.query($(symbolSkipToken)))
+    : typeData;
 
   const symbolInfiniteQueryOptionsFn = plugin.symbol(
     applyNaming(operation.id, plugin.config.infiniteQueryOptions),

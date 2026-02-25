@@ -40,7 +40,9 @@ export const createUseQuery = ({
 
   const hasSkipToken = 'skipToken' in plugin.config && plugin.config.skipToken;
   const symbolSkipToken = hasSkipToken ? plugin.external(`${plugin.name}.skipToken`) : undefined;
-  const paramType = symbolSkipToken ? $.type.or(typeData, $.type.query(symbolSkipToken)) : typeData;
+  const paramType = symbolSkipToken
+    ? $.type.or(typeData, $.type.query($(symbolSkipToken)))
+    : typeData;
 
   const symbolQueryOptionsFn = plugin.referenceSymbol({
     category: 'hook',
