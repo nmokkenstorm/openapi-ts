@@ -381,6 +381,7 @@ export type Config = Plugin.Name<'@tanstack/svelte-query'> &
          */
         meta: (operation: IR.OperationObject) => Record<string, unknown>;
       };
+    mutationOptionsTypeName: string;
     /**
      * Resolved configuration for generated query keys.
      *
@@ -432,6 +433,7 @@ export type Config = Plugin.Name<'@tanstack/svelte-query'> &
          */
         meta: (operation: IR.OperationObject) => Record<string, unknown>;
       };
+    queryOptionsTypeName: string;
   };
 
 export type TanStackSvelteQueryPlugin = DefinePlugin<UserConfig, Config>;

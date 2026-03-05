@@ -8,6 +8,8 @@ export const defaultConfig: TanStackPreactQueryPlugin['Config'] = {
     case: 'camelCase',
     comments: true,
     includeInEntry: false,
+    mutationOptionsTypeName: 'UseMutationOptions',
+    queryOptionsTypeName: 'UseQueryOptions',
   },
   dependencies: ['@hey-api/sdk', '@hey-api/typescript'],
   handler: handler as TanStackPreactQueryPlugin['Handler'],

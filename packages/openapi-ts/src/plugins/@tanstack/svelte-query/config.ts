@@ -8,6 +8,8 @@ export const defaultConfig: TanStackSvelteQueryPlugin['Config'] = {
     case: 'camelCase',
     comments: true,
     includeInEntry: false,
+    mutationOptionsTypeName: 'MutationOptions',
+    queryOptionsTypeName: 'CreateQueryOptions',
   },
   dependencies: ['@hey-api/sdk', '@hey-api/typescript'],
   handler: handler as TanStackSvelteQueryPlugin['Handler'],

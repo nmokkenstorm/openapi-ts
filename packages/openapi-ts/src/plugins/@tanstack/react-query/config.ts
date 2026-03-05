@@ -8,6 +8,8 @@ export const defaultConfig: TanStackReactQueryPlugin['Config'] = {
     case: 'camelCase',
     comments: true,
     includeInEntry: false,
+    mutationOptionsTypeName: 'UseMutationOptions',
+    queryOptionsTypeName: 'UseQueryOptions',
   },
   dependencies: ['@hey-api/sdk', '@hey-api/typescript'],
   handler: handler as TanStackReactQueryPlugin['Handler'],

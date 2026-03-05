@@ -459,6 +459,7 @@ export type Config = Plugin.Name<'@tanstack/react-query'> &
          */
         meta: (operation: IR.OperationObject) => Record<string, unknown>;
       };
+    mutationOptionsTypeName: string;
     /**
      * Resolved configuration for generated query keys.
      *
@@ -511,6 +512,7 @@ export type Config = Plugin.Name<'@tanstack/react-query'> &
          */
         meta: (operation: IR.OperationObject) => Record<string, unknown>;
       };
+    queryOptionsTypeName: string;
     /**
      * Configuration for generated `useMutation()` function helpers.
      *

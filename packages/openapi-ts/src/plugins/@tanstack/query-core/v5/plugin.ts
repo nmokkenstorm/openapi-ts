@@ -22,13 +22,7 @@ export const handlerV5: PluginHandler = ({ plugin }) => {
       resource: `${plugin.name}.InfiniteData`,
     },
   });
-  const mutationsType =
-    plugin.name === '@tanstack/angular-query-experimental' ||
-    plugin.name === '@tanstack/svelte-query' ||
-    plugin.name === '@tanstack/solid-query'
-      ? 'MutationOptions'
-      : 'UseMutationOptions';
-  plugin.symbol(mutationsType, {
+  plugin.symbol(plugin.config.mutationOptionsTypeName, {
     external: plugin.name,
     kind: 'type',
     meta: {
@@ -62,6 +56,14 @@ export const handlerV5: PluginHandler = ({ plugin }) => {
     meta: {
       category: 'external',
       resource: `${plugin.name}.useQuery`,
+    },
+  });
+  plugin.symbol(plugin.config.queryOptionsTypeName, {
+    external: plugin.name,
+    kind: 'type',
+    meta: {
+      category: 'external',
+      resource: `${plugin.name}.QueryObserverOptions`,
     },
   });
   plugin.symbol('AxiosError', {

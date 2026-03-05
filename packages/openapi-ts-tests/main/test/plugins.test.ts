@@ -66,6 +66,48 @@ for (const version of versions) {
       },
       {
         config: createConfig({
+          output: 'useQuery',
+          plugins: [
+            {
+              name: '@tanstack/react-query',
+              useQuery: true,
+            },
+            '@hey-api/client-fetch',
+          ],
+        }),
+        description:
+          'generate Fetch API client with TanStack React Query plugin with useQuery hooks',
+      },
+      {
+        config: createConfig({
+          output: 'useQuery',
+          plugins: [
+            {
+              name: '@tanstack/angular-query-experimental',
+              useQuery: true,
+            },
+            '@hey-api/client-fetch',
+          ],
+        }),
+        description:
+          'generate Fetch API client with TanStack Angular Query Experimental plugin with useQuery hooks',
+      },
+      {
+        config: createConfig({
+          output: 'useQuery',
+          plugins: [
+            {
+              name: '@tanstack/svelte-query',
+              useQuery: true,
+            },
+            '@hey-api/client-fetch',
+          ],
+        }),
+        description:
+          'generate Fetch API client with TanStack Svelte Query plugin with useQuery hooks',
+      },
+      {
+        config: createConfig({
           output: 'fetch',
           plugins: ['@tanstack/solid-query', '@hey-api/client-fetch'],
         }),

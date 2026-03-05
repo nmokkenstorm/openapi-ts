@@ -375,6 +375,7 @@ export type Config = Plugin.Name<'@tanstack/angular-query-experimental'> &
          */
         meta: (operation: IR.OperationObject) => Record<string, unknown>;
       };
+    mutationOptionsTypeName: string;
     /**
      * Resolved configuration for generated query keys.
      *
@@ -426,6 +427,7 @@ export type Config = Plugin.Name<'@tanstack/angular-query-experimental'> &
          */
         meta: (operation: IR.OperationObject) => Record<string, unknown>;
       };
+    queryOptionsTypeName: string;
   };
 
 export type TanStackAngularQueryPlugin = DefinePlugin<UserConfig, Config>;
