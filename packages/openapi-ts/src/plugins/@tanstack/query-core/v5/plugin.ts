@@ -8,6 +8,7 @@ import { createUseGetQueryData } from './use-get-query-data';
 import { createUseMutation } from './use-mutation';
 import { createUseQuery } from './use-query';
 import { createUseSetQueryData } from './use-set-query-data';
+import { createUseSuspenseQuery } from './use-suspense-query';
 
 export const handlerV5: PluginHandler = ({ plugin }) => {
   plugin.forEach(
@@ -40,6 +41,10 @@ export const handlerV5: PluginHandler = ({ plugin }) => {
 
         if ('useSetQueryData' in plugin.config && plugin.config.useSetQueryData.enabled) {
           createUseSetQueryData({ operation, plugin });
+        }
+
+        if ('useSuspenseQuery' in plugin.config && plugin.config.useSuspenseQuery.enabled) {
+          createUseSuspenseQuery({ operation, plugin });
         }
       }
 

@@ -42,5 +42,8 @@ export function TANSTACK_QUERY(plugin: PluginInstance) {
     useQueryClient: plugin.symbol('useQueryClient', {
       external: plugin.name,
     }),
+    useSuspenseQuery: plugin.symbol('useSuspenseQuery', {
+      external: plugin.name,
+    }),
   };
 }

@@ -208,6 +208,7 @@ for (const version of versions) {
               useMutation: true,
               useQuery: true,
               useSetQueryData: true,
+              useSuspenseQuery: true,
             },
             '@hey-api/client-fetch',
           ],

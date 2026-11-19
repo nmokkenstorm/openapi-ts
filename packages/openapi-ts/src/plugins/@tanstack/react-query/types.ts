@@ -556,6 +556,41 @@ export type UserConfig = Plugin.Name<'@tanstack/react-query'> &
            */
           name?: NameTransformer;
         };
+    /**
+     * Configuration for generated `useSuspenseQuery()` function helpers.
+     *
+     * See {@link https://tanstack.com/query/v5/docs/framework/react/reference/useSuspenseQuery useSuspenseQuery}
+     *
+     * Can be:
+     * - `boolean`: Shorthand for `{ enabled: boolean }`
+     * - `string` or `function`: Shorthand for `{ name: string | function }`
+     * - `object`: Full configuration object
+     *
+     * @default false
+     */
+    useSuspenseQuery?:
+      | boolean
+      | NameTransformer
+      | {
+          /**
+           * Casing convention for generated names.
+           *
+           * @default 'camelCase'
+           */
+          case?: Casing;
+          /**
+           * Whether this feature is enabled.
+           *
+           * @default true
+           */
+          enabled?: boolean;
+          /**
+           * Naming pattern for generated names.
+           *
+           * @default 'use{{name}}SuspenseQuery'
+           */
+          name?: NameTransformer;
+        };
   };
 
 export type Config = Plugin.Name<'@tanstack/react-query'> &
@@ -616,6 +651,8 @@ export type Config = Plugin.Name<'@tanstack/react-query'> &
     useQuery: NamingOptions & FeatureToggle;
     /** Configuration for generated React Query hook variant of `setQueryData`. */
     useSetQueryData: NamingOptions & FeatureToggle;
+    /** Configuration for generated `useSuspenseQuery()` function helpers. */
+    useSuspenseQuery: NamingOptions & FeatureToggle;
   };
 
 export type TanStackReactQueryPlugin = DefinePlugin<

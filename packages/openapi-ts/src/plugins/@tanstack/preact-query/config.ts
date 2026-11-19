@@ -15,7 +15,10 @@ export const defaultConfig: TanStackPreactQueryPlugin['Config'] = {
         config.mutationOptions.exported = false;
       }
 
-      if (config.useQuery.enabled && !config.queryOptions.enabled) {
+      if (
+        (config.useQuery.enabled || config.useSuspenseQuery.enabled) &&
+        !config.queryOptions.enabled
+      ) {
         config.queryOptions.enabled = true;
         config.queryOptions.exported = false;
       }
@@ -126,6 +129,14 @@ export const defaultConfig: TanStackPreactQueryPlugin['Config'] = {
       }),
       enabled: false,
       name: 'use{{name}}SetQueryData',
+    },
+    useSuspenseQuery: {
+      $coerceAny: ({ type, value }) => ({
+        enabled: Boolean(value),
+        ...(type === 'string' || type === 'function' ? { name: value } : {}),
+      }),
+      enabled: false,
+      name: 'use{{name}}SuspenseQuery',
     },
   },
   dependencies: ['@hey-api/sdk', '@hey-api/typescript'],
